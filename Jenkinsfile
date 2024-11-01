@@ -7,12 +7,12 @@ pipeline {
     stages {
         stage('env') {
             steps {
-                sh 'mvn --version'
+                bat 'mvn --version'
             }
         }
         stage('build') {
             steps {
-                sh 'mvn clean install -B --no-transfer-progress'
+                bat 'mvn clean install'
             }
         }
     }
