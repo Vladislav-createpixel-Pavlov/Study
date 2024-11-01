@@ -1,0 +1,13 @@
+pipeline {
+    stage('Git checkout') {
+        checkout scm
+    }
+    stage('Run tests') {
+        withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'Default', mavenSettingsConfig: '', traceability: true) {
+           'mvn clean test'
+        }
+    }
+    stage('Allure') {
+        allure includeProperties: false, jdk: '', results: [[path: 'target/reports/allure-results']]
+    }
+}
