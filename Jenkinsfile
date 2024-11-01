@@ -1,13 +1,19 @@
 pipeline {
-    stage('Git checkout') {
-        checkout scm
+    agent any
+    tools {
+        maven 'maven'
+        jdk 'jdk11'
     }
-    stage('Run tests') {
-        withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'Default', mavenSettingsConfig: '', traceability: true) {
-           'mvn clean test'
+    stages {
+        stage('env') {
+            steps {
+                sh 'mvn --version'
+            }
         }
-    }
-    stage('Allure') {
-        allure includeProperties: false, jdk: '', results: [[path: 'target/reports/allure-results']]
+        stage('build') {
+            steps {
+                sh 'mvn clean install -B --no-transfer-progress'
+            }
+        }
     }
 }
