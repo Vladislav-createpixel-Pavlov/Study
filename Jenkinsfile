@@ -5,22 +5,22 @@ pipeline {
         jdk 'Java'
     }
     stages {
-        stage('env') {
-            steps {
-                bat 'mvn --version'
-            }
-        }
         stage('build') {
             steps {
                 bat 'mvn clean test'
             }
-        }
-        stage('allure generate'){
-            steps{
-                script{
-                    allure includeProperties: false, jdk: '', results: [[path: './allure-results']]
-                }
+        post {                
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success { allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/allure-results']]
+                ])
             }
-        }
     }
+        }
+}
 }
