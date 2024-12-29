@@ -32,6 +32,7 @@ public class Test
 //        validatableResponse.statusCode(200);
 //    }
     @org.junit.jupiter.api.Test
+    @DisplayName("EmptyTest")
     public void empyTest() {
         RestAssured
                 .given()
@@ -41,6 +42,7 @@ public class Test
                 .then();
     }
     @org.junit.jupiter.api.Test
+    @DisplayName("ThreadQA")
     public void Test1() {
     RestAssured
             .given()
