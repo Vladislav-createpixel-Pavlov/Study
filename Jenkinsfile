@@ -17,7 +17,7 @@ pipeline {
                     jdk: '',
                     properties: [],
                     reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'C:/ProgramData/Jenkins/.jenkins/workspace/MavenTestJobLocal/allure-results']]
+                    results: [[path: 'C:/ProgramData/Jenkins/.jenkins/workspace/MavenTestJobLocal/allure-report']]
                 ])
             }
     }
