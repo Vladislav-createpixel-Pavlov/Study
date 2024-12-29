@@ -40,5 +40,16 @@ public class Test
                 .contentType(ContentType.JSON)
                 .then();
     }
+    @org.junit.jupiter.api.Test
+    public void Test1() {
+    RestAssured
+            .given()
+            .log().all()
+            .when()
+            .contentType(ContentType.JSON)
+            .get("http://85.192.34.140:8080/api/easy/carBrands")
+            .then()
+            .statusCode(200);
+    }
 
 }
