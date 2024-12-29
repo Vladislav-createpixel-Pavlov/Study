@@ -15,5 +15,9 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+        stage('allure generate'){
+            steps{
+                script{
+                    allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
     }
 }
