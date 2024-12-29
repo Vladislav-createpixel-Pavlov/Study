@@ -18,9 +18,8 @@ public class Test2
                 .then()
                 .statusCode(200)
                 .extract()
-                .body()
-                .toString();
-        Allure.addAttachment("Результат", "text/plain", response);
+                .asPrettyString();
+        Allure.addAttachment("Результат", "application/json", response);
 
     }
 }
