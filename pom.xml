@@ -8,7 +8,9 @@
     <artifactId>JenkinsRestAssured</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
     <properties>
+
         <allure.version>2.25.0</allure.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -61,11 +63,15 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <testFailureIgnore>false</testFailureIgnore>
+                    <systemProperties>
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>C:/ProgramData/Jenkins/.jenkins/workspace/MavenTestJobLocal/allure-results</value>
+                        </property>
+                    </systemProperties>
                     <argLine>
-                        -Dfile.encoding=${project.build.sourceEncoding}
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
+                    -Dfile.encoding=${project.build.sourceEncoding}
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" </argLine>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -83,7 +89,7 @@
                 <inherited>false</inherited>
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
-                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                    <resultsDirectory>C:/ProgramData/Jenkins/.jenkins/workspace/MavenTestJobLocal/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
             <plugin>
