@@ -66,7 +66,7 @@
                     <systemProperties>
                         <property>
                             <name>allure.results.directory</name>
-                            <value>C:/ProgramData/Jenkins/.jenkins/workspace/MavenTestJobLocal/allure-results</value>
+                            <value>C:/ProgramData/Jenkins/.jenkins/workspace/GitPipline/allure-results</value>
                         </property>
                     </systemProperties>
                     <argLine>
@@ -89,7 +89,7 @@
                 <inherited>false</inherited>
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
-                    <resultsDirectory>C:/ProgramData/Jenkins/.jenkins/workspace/MavenTestJobLocal/allure-results</resultsDirectory>
+                    <resultsDirectory>C:/ProgramData/Jenkins/.jenkins/workspace/GitPipline/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
             <plugin>
