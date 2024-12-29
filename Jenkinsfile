@@ -19,5 +19,8 @@ pipeline {
             steps{
                 script{
                     allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+                }
+            }
+        }
     }
 }
