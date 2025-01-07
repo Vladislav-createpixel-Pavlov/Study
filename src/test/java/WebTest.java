@@ -3,7 +3,6 @@ import io.restassured.response.Response;
 import org.example.Food;
 import org.example.FoodGenerator;
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import java.sql.ResultSet;
@@ -19,7 +18,7 @@ import java.sql.SQLException;
 public class WebTest extends BaseTest {
     Food food = FoodGenerator.getRandomFood();
 
-    @Test
+    @org.junit.jupiter.api.Test
     @DisplayName("Сброс и добавление товара через Web часть")
     public void WebTest() throws InterruptedException, SQLException {
         app.getMainPage()
@@ -32,7 +31,7 @@ public class WebTest extends BaseTest {
                 .fillChechBox(food.exotic)
                 .clickSave();
     }
-    @Test
+    @org.junit.jupiter.api.Test
     @DisplayName("Проверка что в БД отображаются действия из Web формы меню \"Песочница\"->\"Товары\"")
     public void BDTestAssert() throws InterruptedException, SQLException {
         System.out.printf("Тестовые параметры: %nНазвание:"+ food.name+"%nТип:"+food.type+"%nЭкзотический:"+food.exotic+" %n");
@@ -40,7 +39,7 @@ public class WebTest extends BaseTest {
         Allure.addAttachment("Результат", "application/json", String.valueOf(result));
         Assert.assertTrue(food.name,result.last());
     }
-    @Test
+    @org.junit.jupiter.api.Test
     @DisplayName("Проверка что в API отобрадаются действия из Web формы меню \"Песочница\"->\"Товары\"")
     public void ApiTestAssert() throws InterruptedException, SQLException {
         ApiRequest request = RequestFactory.createRequest("GET","http://localhost:8080/api/food",food);

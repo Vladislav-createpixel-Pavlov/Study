@@ -3,7 +3,6 @@ import org.example.Food;
 import org.example.FoodGenerator;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.Test;
 
 import java.sql.SQLException;
 
@@ -16,7 +15,7 @@ import java.sql.SQLException;
 
 public class APITest extends BaseTest{
     Food food = FoodGenerator.getRandomFood();
-    @Test
+    @org.junit.jupiter.api.Test
     @DisplayName("Сброс и добавление товара через API")
     public void ApiTest() throws SQLException {
 
@@ -28,7 +27,7 @@ public class APITest extends BaseTest{
 //        Assert.assertEquals(200,response.getStatusCode());
 //        Assert.assertTrue(response.getBody().jsonPath().getString("name").contains("Помидор"));
     }
-    @Test
+    @org.junit.jupiter.api.Test
     @DisplayName("Проверка что в веб части портала - меню \"Песочница\"->\"Товары\" - отображаются действия проделанные в API")
     public void WebTest() throws InterruptedException, SQLException {
         app.getMainPage()
@@ -38,7 +37,7 @@ public class APITest extends BaseTest{
                 .selectTableElement();
 
     }
-    @Test
+    @org.junit.jupiter.api.Test
     @DisplayName("Проверка что в БД - отображаются действия проделанные в API")
     public void BDTest() throws InterruptedException, SQLException {
 
