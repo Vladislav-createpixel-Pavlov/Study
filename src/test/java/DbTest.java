@@ -21,8 +21,11 @@ public class DbTest extends BaseTest
     @DisplayName("CRUD опреции с товарами через БД")
     public void BDTestInsert() throws InterruptedException, SQLException {
         System.out.printf("Тестовые параметры: %nНазвание:"+ food.name+"%nТип:"+food.type+"%nЭкзотический:"+food.exotic+" %n");
-        BaseTest.statement.executeUpdate("INSERT INTO FOOD(FOOD_NAME,FOOD_TYPE,FOOD_EXOTIC) VALUES ('"+food.name+"','VEGETABLE',0)");
-        ResultSet resultSet = BaseTest.statement.executeQuery("Select * FROM FOOD");
+        BaseTest.DBInsert("INSERT INTO FOOD(FOOD_NAME,FOOD_TYPE,FOOD_EXOTIC) VALUES ('"+food.name+"','VEGETABLE',0)");
+        ResultSet resultSet = BaseTest.DBSelect("Select * FROM FOOD");
+        while(resultSet.next()){
+            System.out.println("|"+resultSet.getString(1)+"|"+resultSet.getString(2)+"|"+resultSet.getString(3)+"|");
+        }
     }
     @org.junit.jupiter.api.Test
     @DisplayName("Проверка что в веб части портала - меню \"Песочница\"->\"Товары\" - отображаются действия проделанные в БД")

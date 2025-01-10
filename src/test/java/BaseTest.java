@@ -3,15 +3,15 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.example.*;
+import org.example.DriverManager;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static io.restassured.RestAssured.given;
 import static org.example.PropConst.BASE_URL;
@@ -52,17 +52,31 @@ public class BaseTest
                 .extract().response();
         cookie = putResponse.cookie("JSESSIONID");
     }
-    protected static ResultSet DBSelect(String query) {
-        ResultSet resultSet = null;
-        try {
-            resultSet = statement.executeQuery(query);
+    protected static ResultSet DBSelect(String query) throws SQLException {
 
+        try {
+            statement = connection.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
         }
         catch (Exception e)
         {
 
         };
-        return resultSet;
+        return statement.executeQuery(query);
+    }
+    protected static void DBInsert(String query) throws SQLException {
+
+        try {
+            statement = connection.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            statement.execute(query);
+        }
+        catch (Exception e)
+        {
+
+        };
     }
     @Step
     protected static ResponseBody Select(String URI){
@@ -82,16 +96,14 @@ public class BaseTest
     }
 
     @Step
-    @BeforeClass
+    @BeforeAll
     public static void beforeAll() throws SQLException, IOException {
         connection = java.sql.DriverManager.getConnection(
                 "jdbc:h2:tcp://localhost:9092/mem:testdb",
                 "user",
                 "pass"
         );
-        statement = connection.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
+        System.out.println("beforeAll");
 //         Runtime.getRuntime().exec("cd C:\\Working Project");
 //        Runtime.getRuntime().exec("java -jar qualit-sandbox.jar");
 
@@ -106,10 +118,11 @@ public class BaseTest
     }
 
     @Step
-    @AfterClass
+    @AfterAll
     public static void afterAll() throws SQLException {
         InitManager.quitFramework();
-        statement.executeUpdate(QueryBuilder("DELETE FROM FOOD WHERE FOOD_ID = (SELECT MAX(FOOD_ID) FROM FOOD)"));
+        statement.execute(QueryBuilder("DELETE FROM FOOD WHERE FOOD_ID = (SELECT MAX(FOOD_ID) FROM FOOD)"));
         connection.close();
+        System.out.println("afterAll");
     }
 }
