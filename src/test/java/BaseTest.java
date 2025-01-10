@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.runners.Parameterized;
 
 import java.io.IOException;
 import java.sql.*;
@@ -20,7 +22,7 @@ public class BaseTest
 {
     protected PageManager app = PageManager.getPageManager();
 
-    private final DriverManager driverManager = DriverManager.getDriverManager();
+    private static final DriverManager driverManager = DriverManager.getDriverManager();
 
     static Faker faker = new Faker();
     static String cookie = null;
@@ -112,8 +114,8 @@ public class BaseTest
     }
 
     @Step
-    @Before
-    public void beforeEach() throws SQLException {
+    @BeforeClass
+    public static void beforeEach() throws SQLException {
         driverManager.getDriver().get(TestPropManager.getTestPropManager().getProperty(BASE_URL));
     }
 
