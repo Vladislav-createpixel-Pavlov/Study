@@ -19,7 +19,7 @@ pipeline {
                     jdk: '',
                     properties: [],
                     reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'C:/ProgramData/Jenkins/.jenkins/workspace/GitPipline/allure-results']]
+                    results: [[path: 'target/allure-results']]
                 ])
             }
     }
